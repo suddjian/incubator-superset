@@ -19,7 +19,7 @@ import json
 import logging
 import time
 
-from superset.models.core import Dashboard
+from superset.models.dashboard import Dashboard
 from superset.utils.core import decode_dashboards
 
 

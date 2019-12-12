@@ -19,7 +19,7 @@ from flask_appbuilder import expose
 from flask_appbuilder.security.decorators import has_access
 
 from superset import appbuilder, db
-from superset.models import core as models
+from superset.models.dashboard import Dashboard as DashboardModel
 
 from .base import BaseSupersetView
 
@@ -31,7 +31,7 @@ class Dashboard(BaseSupersetView):
     @expose("/new/")
     def new(self):  # pylint: disable=no-self-use
         """Creates a new, blank dashboard and redirects to it in edit mode"""
-        new_dashboard = models.Dashboard(
+        new_dashboard = DashboardModel(
             dashboard_title="[ untitled dashboard ]", owners=[g.user]
         )
         db.session.add(new_dashboard)

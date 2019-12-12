@@ -257,13 +257,14 @@ def decode_dashboards(o):
     Function to be passed into json.loads obj_hook parameter
     Recreates the dashboard object from a json representation.
     """
-    import superset.models.core as models
+    from superset.models.dashboard import Dashboard
+    from superset.models.slice import Slice
     from superset.connectors.sqla.models import SqlaTable, SqlMetric, TableColumn
 
     if "__Dashboard__" in o:
-        return models.Dashboard(**o["__Dashboard__"])
+        return Dashboard(**o["__Dashboard__"])
     elif "__Slice__" in o:
-        return models.Slice(**o["__Slice__"])
+        return Slice(**o["__Slice__"])
     elif "__TableColumn__" in o:
         return TableColumn(**o["__TableColumn__"])
     elif "__SqlaTable__" in o:
