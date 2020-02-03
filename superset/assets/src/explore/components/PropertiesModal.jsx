@@ -93,9 +93,9 @@ function PropertiesModal({ slice, onHide, onSave }) {
   useEffect(() => {
     SupersetClient.get({
       endpoint: `/api/v1/chart/related/owners`,
-    }).then(res => {
+    }).then(response => {
       setOwnerOptions(
-        res.json.result.map(item => ({
+        response.json.result.map(item => ({
           value: item.value,
           label: item.text,
         })),
@@ -114,16 +114,16 @@ function PropertiesModal({ slice, onHide, onSave }) {
       owners: owners.map(o => o.value),
     };
     try {
-      const res = await SupersetClient.put({
+      const response = await SupersetClient.put({
         endpoint: `/api/v1/chart/${slice.slice_id}`,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
       // update the redux state
-      onSave(res.json.result);
+      onSave(response.json.result);
       onHide();
-    } catch (res) {
-      const clientError = await getClientErrorObject(res);
+    } catch (response) {
+      const clientError = await getClientErrorObject(response);
       showError(clientError);
     }
     setSubmitting(false);
