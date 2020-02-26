@@ -2417,7 +2417,11 @@ class Superset(BaseSupersetView):
     def csv(self, client_id):
         """Download the query results as csv."""
         logger.info("Exporting CSV file [{}]".format(client_id))
-        query = db.session.query(Query).filter_by(client_id=client_id).one()
+        query = (
+            db.session.query(Query)
+            .filter_by(client_id=client_id, user_id=g.user.id)
+            .one()
+        )
 
         rejected_tables = security_manager.rejected_tables(
             query.sql, query.database, query.schema
