@@ -25,6 +25,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { QueryParamProvider } from 'use-query-params';
 import { initFeatureFlags } from 'src/featureFlags';
 import { supersetTheme, ThemeProvider } from '@superset-ui/style';
+import DynamicPluginProvider from 'src/components/DynamicPlugins/DynamicPluginProvider';
 import ErrorBoundary from 'src/components/ErrorBoundary';
 import Menu from 'src/components/Menu/Menu';
 import FlashProvider from 'src/components/FlashProvider';
@@ -38,7 +39,6 @@ import setupApp from '../setup/setupApp';
 import setupPlugins from '../setup/setupPlugins';
 import Welcome from './Welcome';
 import ToastPresenter from '../messageToasts/containers/ToastPresenter';
-import DynamicPluginProvider from 'src/components/DynamicPlugins/DynamicPluginProvider';
 
 setupApp();
 setupPlugins();

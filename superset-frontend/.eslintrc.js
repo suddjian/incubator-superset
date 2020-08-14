@@ -87,12 +87,18 @@ module.exports = {
         'no-prototype-builtins': 0,
         'no-restricted-properties': 0,
         'no-restricted-syntax': 0,
-        'no-restricted-imports': ['error', {
-          'paths': [{
-            'name': 'antd',
-            'message': 'Please import Ant components from the index of common/components',
-          }]
-        }],
+        'no-restricted-imports': [
+          'error',
+          {
+            paths: [
+              {
+                name: 'antd',
+                message:
+                  'Please import Ant components from the index of common/components',
+              },
+            ],
+          },
+        ],
         'padded-blocks': 0,
         'prefer-arrow-callback': 0,
         'react/forbid-prop-types': 0,
@@ -152,12 +158,18 @@ module.exports = {
     'no-prototype-builtins': 0,
     'no-restricted-properties': 0,
     'no-restricted-syntax': 0,
-    'no-restricted-imports': ['error', {
-      'paths': [{
-        'name': 'antd',
-        'message': 'Please import Ant components from the index of common/components',
-      }]
-    }],
+    'no-restricted-imports': [
+      'error',
+      {
+        paths: [
+          {
+            name: 'antd',
+            message:
+              'Please import Ant components from the index of common/components',
+          },
+        ],
+      },
+    ],
     'padded-blocks': 0,
     'prefer-arrow-callback': 0,
     'prefer-object-spread': 1,
@@ -171,6 +183,18 @@ module.exports = {
     'react/require-default-props': 0,
     'react/jsx-fragments': 1,
     'react/prop-types': 0,
+    'react/sort-comp': [
+      1,
+      {
+        order: [
+          'static-variables',
+          'static-methods',
+          'lifecycle',
+          'everything-else',
+          'render',
+        ],
+      },
+    ],
     'prettier/prettier': 'error',
   },
   settings: {
