@@ -41,6 +41,8 @@ import { logEvent } from '../logger/actions';
 import { Logger, LOG_ACTIONS_LOAD_CHART } from '../logger/LogUtils';
 import getClientErrorObject from '../utils/getClientErrorObject';
 import { allowCrossDomain as allowDomainSharding } from '../utils/hostNamesConfig';
+import { getControlsState } from 'src/explore/store';
+import { getFormDataFromControls } from 'src/explore/controlUtils';
 
 export const CHART_UPDATE_STARTED = 'CHART_UPDATE_STARTED';
 export function chartUpdateStarted(queryController, latestQueryFormData, key) {
@@ -96,6 +98,20 @@ export const ANNOTATION_QUERY_FAILED = 'ANNOTATION_QUERY_FAILED';
 export function annotationQueryFailed(annotation, queryResponse, key) {
   return { type: ANNOTATION_QUERY_FAILED, annotation, queryResponse, key };
 }
+
+export const DYNAMIC_PLUGIN_CONTROLS_READY = 'DYNAMIC_PLUGIN_CONTROLS_READY';
+export const dynamicPluginControlsReady = () => (dispatch, getState) => {
+  const state = getState();
+  const controlsState = getControlsState(
+    state.explore,
+    state.explore.form_data,
+  );
+  dispatch({
+    type: DYNAMIC_PLUGIN_CONTROLS_READY,
+    key: controlsState.slice_id.value,
+    controlsState,
+  });
+};
 
 const legacyChartDataRequest = async (
   formData,
