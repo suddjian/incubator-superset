@@ -21,6 +21,7 @@
 import moment from 'moment';
 import { t } from '@superset-ui/translation';
 import { SupersetClient } from '@superset-ui/connection';
+import { getControlsState } from 'src/explore/store';
 import { isFeatureEnabled, FeatureFlag } from '../featureFlags';
 import {
   getAnnotationJsonUrl,
@@ -36,7 +37,7 @@ import {
   ANNOTATION_SOURCE_TYPES,
 } from '../modules/AnnotationTypes';
 
-import { getControlsState } from 'src/explore/store';
+
 import { addDangerToast } from '../messageToasts/actions';
 import { logEvent } from '../logger/actions';
 import { Logger, LOG_ACTIONS_LOAD_CHART } from '../logger/LogUtils';
