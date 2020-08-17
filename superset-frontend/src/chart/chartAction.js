@@ -36,13 +36,12 @@ import {
   ANNOTATION_SOURCE_TYPES,
 } from '../modules/AnnotationTypes';
 
+import { getControlsState } from 'src/explore/store';
 import { addDangerToast } from '../messageToasts/actions';
 import { logEvent } from '../logger/actions';
 import { Logger, LOG_ACTIONS_LOAD_CHART } from '../logger/LogUtils';
 import getClientErrorObject from '../utils/getClientErrorObject';
 import { allowCrossDomain as allowDomainSharding } from '../utils/hostNamesConfig';
-import { getControlsState } from 'src/explore/store';
-import { getFormDataFromControls } from 'src/explore/controlUtils';
 
 export const CHART_UPDATE_STARTED = 'CHART_UPDATE_STARTED';
 export function chartUpdateStarted(queryController, latestQueryFormData, key) {
