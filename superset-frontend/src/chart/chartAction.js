@@ -37,7 +37,6 @@ import {
   ANNOTATION_SOURCE_TYPES,
 } from '../modules/AnnotationTypes';
 
-
 import { addDangerToast } from '../messageToasts/actions';
 import { logEvent } from '../logger/actions';
 import { Logger, LOG_ACTIONS_LOAD_CHART } from '../logger/LogUtils';
