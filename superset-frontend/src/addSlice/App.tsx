@@ -23,6 +23,7 @@ import setupApp from '../setup/setupApp';
 import setupPlugins from '../setup/setupPlugins';
 import DynamicPluginProvider from '../components/DynamicPlugins/DynamicPluginProvider';
 import AddSliceContainer from './AddSliceContainer';
+import { initFeatureFlags } from '../featureFlags';
 
 setupApp();
 setupPlugins();
@@ -31,6 +32,8 @@ const addSliceContainer = document.getElementById('js-add-slice-container');
 const bootstrapData = JSON.parse(
   addSliceContainer?.getAttribute('data-bootstrap') || '{}',
 );
+
+initFeatureFlags(bootstrapData.common.feature_flags);
 
 const App = () => (
   <ThemeProvider theme={supersetTheme}>

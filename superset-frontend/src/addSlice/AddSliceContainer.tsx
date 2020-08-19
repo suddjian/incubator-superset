@@ -95,28 +95,26 @@ export default class AddSliceContainer extends React.PureComponent<
           </Panel.Heading>
           <Panel.Body>
             <div>
-              <p>{t('Choose a datasource')}</p>
-              <p>
-                <div style={styleSelectWidth}>
-                  <Select
-                    clearable={false}
-                    ignoreAccents={false}
-                    name="select-datasource"
-                    onChange={this.changeDatasource}
-                    options={this.props.datasources}
-                    placeholder={t('Choose a datasource')}
-                    style={styleSelectWidth}
-                    value={
-                      this.state.datasourceValue
-                        ? {
-                            value: this.state.datasourceValue,
-                          }
-                        : undefined
-                    }
-                    width={600}
-                  />
-                </div>
-              </p>
+              <div>{t('Choose a datasource')}</div>
+              <div style={styleSelectWidth}>
+                <Select
+                  clearable={false}
+                  ignoreAccents={false}
+                  name="select-datasource"
+                  onChange={this.changeDatasource}
+                  options={this.props.datasources}
+                  placeholder={t('Choose a datasource')}
+                  style={styleSelectWidth}
+                  value={
+                    this.state.datasourceValue
+                      ? {
+                          value: this.state.datasourceValue,
+                        }
+                      : undefined
+                  }
+                  width={600}
+                />
+              </div>
               <span className="text-muted">
                 {t(
                   'If the datasource you are looking for is not available in the list, follow the instructions on how to add it in the Superset tutorial.',
