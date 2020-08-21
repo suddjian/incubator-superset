@@ -16,9 +16,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-@import '../../stylesheets/less/variables.less';
 
-.chart-tooltip {
-  opacity: 0.75;
-  font-size: @font-size-s;
+/**
+ * The Owner model as returned from the API
+ */
+
+export default interface Owner {
+  first_name: string;
+  id: string;
+  last_name: string;
+  username: string;
 }

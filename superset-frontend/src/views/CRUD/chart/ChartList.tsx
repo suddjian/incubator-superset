@@ -30,17 +30,21 @@ import {
 } from 'src/views/CRUD/utils';
 import ConfirmStatusChange from 'src/components/ConfirmStatusChange';
 import SubMenu from 'src/components/Menu/SubMenu';
+import AvatarIcon from 'src/components/AvatarIcon';
 import Icon from 'src/components/Icon';
 import FaveStar from 'src/components/FaveStar';
-import ListView, { ListViewProps } from 'src/components/ListView/ListView';
-import {
+import ListView, {
+  ListViewProps,
   FetchDataConfig,
   Filters,
   SelectOption,
-} from 'src/components/ListView/types';
+} from 'src/components/ListView';
 import withToasts from 'src/messageToasts/enhancers/withToasts';
 import PropertiesModal, { Slice } from 'src/explore/components/PropertiesModal';
 import Chart from 'src/types/Chart';
+import ListViewCard from 'src/components/ListViewCard';
+import Label from 'src/components/Label';
+import { Dropdown, Menu } from 'src/common/components';
 
 const PAGE_SIZE = 25;
 const FAVESTAR_BASE_URL = '/superset/favstar/slice';
@@ -53,7 +57,7 @@ interface Props {
 interface State {
   bulkSelectEnabled: boolean;
   chartCount: number;
-  charts: any[];
+  charts: Chart[];
   favoriteStatus: object;
   lastFetchDataConfig: FetchDataConfig | null;
   loading: boolean;
@@ -191,7 +195,7 @@ class ChartList extends React.PureComponent<Props, State> {
         },
       }: any) => <a href={dsUrl}>{dsNameTxt}</a>,
       Header: t('Datasource'),
-      accessor: 'datasource_id',
+      accessor: 'datasource_name',
     },
     {
       Cell: ({
@@ -225,7 +229,7 @@ class ChartList extends React.PureComponent<Props, State> {
       disableSortBy: true,
     },
     {
-      accessor: 'datasource',
+      accessor: 'datasource_id',
       hidden: true,
       disableSortBy: true,
     },
@@ -335,6 +339,27 @@ class ChartList extends React.PureComponent<Props, State> {
       id: 'slice_name',
       input: 'search',
       operator: 'name_or_description',
+    },
+  ];
+
+  sortTypes = [
+    {
+      desc: false,
+      id: 'slice_name',
+      label: 'Alphabetical',
+      value: 'alphabetical',
+    },
+    {
+      desc: true,
+      id: 'changed_on_delta_humanized',
+      label: 'Recently Modified',
+      value: 'recently_modified',
+    },
+    {
+      desc: false,
+      id: 'changed_on_delta_humanized',
+      label: 'Least Recently Modified',
+      value: 'least_recently_modified',
     },
   ];
 
@@ -457,6 +482,85 @@ class ChartList extends React.PureComponent<Props, State> {
       });
   };
 
+  renderCard = (props: Chart) => {
+    const menu = (
+      <Menu>
+        {this.canDelete && (
+          <Menu.Item>
+            <ConfirmStatusChange
+              title={t('Please Confirm')}
+              description={
+                <>
+                  {t('Are you sure you want to delete')}{' '}
+                  <b>{props.slice_name}</b>?
+                </>
+              }
+              onConfirm={() => this.handleChartDelete(props)}
+            >
+              {confirmDelete => (
+                <div
+                  role="button"
+                  tabIndex={0}
+                  className="action-button"
+                  onClick={confirmDelete}
+                >
+                  <ListViewCard.MenuIcon name="trash" /> Delete
+                </div>
+              )}
+            </ConfirmStatusChange>
+          </Menu.Item>
+        )}
+        {this.canEdit && (
+          <Menu.Item
+            role="button"
+            tabIndex={0}
+            onClick={() => this.openChartEditModal(props)}
+          >
+            <ListViewCard.MenuIcon name="pencil" /> Edit
+          </Menu.Item>
+        )}
+      </Menu>
+    );
+
+    return (
+      <ListViewCard
+        title={props.slice_name}
+        url={this.state.bulkSelectEnabled ? undefined : props.url}
+        imgURL={props.thumbnail_url ?? ''}
+        imgFallbackURL={'/static/assets/images/chart-card-fallback.png'}
+        description={t('Last modified %s', props.changed_on_delta_humanized)}
+        coverLeft={(props.owners || []).slice(0, 5).map(owner => (
+          <AvatarIcon
+            key={owner.id}
+            uniqueKey={`${owner.username}-${props.id}`}
+            firstName={owner.first_name}
+            lastName={owner.last_name}
+            iconSize={24}
+            textSize={9}
+          />
+        ))}
+        coverRight={
+          <Label bsStyle="secondary">{props.datasource_name_text}</Label>
+        }
+        actions={
+          <ListViewCard.Actions>
+            <FaveStar
+              itemId={props.id}
+              fetchFaveStar={this.fetchMethods.fetchFaveStar}
+              saveFaveStar={this.fetchMethods.saveFaveStar}
+              isStarred={!!this.state.favoriteStatus[props.id]}
+              width={20}
+              height={20}
+            />
+            <Dropdown overlay={menu}>
+              <Icon name="more" />
+            </Dropdown>
+          </ListViewCard.Actions>
+        }
+      />
+    );
+  };
+
   render() {
     const {
       bulkSelectEnabled,
@@ -509,6 +613,7 @@ class ChartList extends React.PureComponent<Props, State> {
               <ListView
                 bulkActions={bulkActions}
                 bulkSelectEnabled={bulkSelectEnabled}
+                cardSortSelectOptions={this.sortTypes}
                 className="chart-list-view"
                 columns={this.columns}
                 count={chartCount}
@@ -519,6 +624,7 @@ class ChartList extends React.PureComponent<Props, State> {
                 initialSort={this.initialSort}
                 loading={loading}
                 pageSize={PAGE_SIZE}
+                renderCard={this.renderCard}
               />
             );
           }}

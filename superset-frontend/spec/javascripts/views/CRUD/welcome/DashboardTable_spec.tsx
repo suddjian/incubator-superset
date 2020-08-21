@@ -23,8 +23,8 @@ import configureStore from 'redux-mock-store';
 import fetchMock from 'fetch-mock';
 import { supersetTheme, ThemeProvider } from '@superset-ui/style';
 
-import ListView from 'src/components/ListView/ListView';
-import DashboardTable from 'src/welcome/DashboardTable';
+import ListView from 'src/components/ListView';
+import DashboardTable from 'src/views/CRUD/welcome/DashboardTable';
 
 // store needed for withToasts(DashboardTable)
 const mockStore = configureStore([thunk]);

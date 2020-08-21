@@ -75,7 +75,6 @@ const DEFAULT_ORDER = [
   'line_multi',
   'treemap',
   'box_plot',
-  'separator',
   'sunburst',
   'sankey',
   'word_cloud',
@@ -86,7 +85,6 @@ const DEFAULT_ORDER = [
   'bubble',
   'deck_geojson',
   'horizon',
-  'markup',
   'deck_multi',
   'compare',
   'partition',
@@ -96,7 +94,6 @@ const DEFAULT_ORDER = [
   'world_map',
   'paired_ttest',
   'para',
-  'iframe',
   'country_map',
 ];
 
@@ -234,7 +231,7 @@ export default class VizTypeControl extends React.PureComponent {
           onHide={this.toggleModal}
           onEnter={this.focusSearch}
           onExit={this.setSearchRef}
-          bsSize="lg"
+          bsSize="large"
         >
           <Modal.Header closeButton>
             <Modal.Title>{t('Select a visualization type')}</Modal.Title>

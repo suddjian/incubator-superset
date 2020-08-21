@@ -16,11 +16,7 @@
   specific language governing permissions and limitations
   under the License.
 #}
-{% extends "superset/basic.html" %}
-
-{% block navbar %}
-{% endblock %}
-
-{% block tail_js %}
-  {{ js_bundle("welcome") }}
-{% endblock %}
+*Triggered Alert: {{label}} :redalert:*
+SQL Statement:```{{sql}}```
+<{{alert_url}}|View Alert Details>
+<{{url}}|*Explore in Superset*>

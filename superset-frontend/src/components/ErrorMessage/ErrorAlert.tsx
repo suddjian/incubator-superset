@@ -21,7 +21,7 @@ import { Modal } from 'react-bootstrap';
 import { styled, supersetTheme } from '@superset-ui/style';
 import { t } from '@superset-ui/translation';
 import { noOp } from 'src/utils/common';
-import Button from 'src/views/CRUD/dataset/Button';
+import Button from 'src/views/CRUD/data/dataset/Button';
 
 import Icon from '../Icon';
 import { ErrorLevel, ErrorSource } from './types';
@@ -58,6 +58,7 @@ const ErrorAlertDiv = styled.div<{ level: ErrorLevel }>`
 
 const ErrorModal = styled(Modal)<{ level: ErrorLevel }>`
   color: ${({ level, theme }) => theme.colors[level].dark2};
+  overflow-wrap: break-word;
 
   .icon {
     margin-right: ${({ theme }) => 2 * theme.gridUnit}px;

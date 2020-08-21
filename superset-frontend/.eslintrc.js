@@ -120,6 +120,17 @@ module.exports = {
         },
       },
     },
+    {
+      files: ['*.stories.jsx', '*.stories.tsx'],
+      rules: {
+        // this is to keep eslint from complaining about storybook addons,
+        // since they are included as dev dependencies rather than direct dependencies.
+        'import/no-extraneous-dependencies': [
+          'error',
+          { devDependencies: true },
+        ],
+      },
+    },
   ],
   rules: {
     camelcase: [

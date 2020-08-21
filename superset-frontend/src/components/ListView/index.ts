@@ -16,31 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React from 'react';
-import { Panel, Row, Tab } from 'react-bootstrap';
-import { shallow } from 'enzyme';
 
-import Welcome from 'src/welcome/Welcome';
+export * from './ListView';
+export * from './types';
 
-describe('Welcome', () => {
-  const mockedProps = {
-    user: {
-      username: 'alpha',
-      firstName: 'alpha',
-      lastName: 'alpha',
-      createdOn: '2016-11-11T12:34:17',
-      userId: 5,
-      email: 'alpha@alpha.com',
-      isActive: true,
-    },
-  };
-  it('is valid', () => {
-    expect(React.isValidElement(<Welcome {...mockedProps} />)).toBe(true);
-  });
-  it('renders 3 Tab, Panel, and Row components', () => {
-    const wrapper = shallow(<Welcome {...mockedProps} />);
-    expect(wrapper.find(Tab)).toHaveLength(3);
-    expect(wrapper.find(Panel)).toHaveLength(3);
-    expect(wrapper.find(Row)).toHaveLength(3);
-  });
-});
+export { default } from './ListView';

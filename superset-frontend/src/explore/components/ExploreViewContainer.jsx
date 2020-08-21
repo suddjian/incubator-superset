@@ -24,6 +24,7 @@ import { connect } from 'react-redux';
 import { debounce } from 'lodash';
 import styled from '@superset-ui/style';
 import { t } from '@superset-ui/translation';
+import { logging } from '@superset-ui/core';
 
 import { useDynamicPluginContext } from 'src/components/DynamicPlugins/PluginContext';
 import ExploreChartPanel from './ExploreChartPanel';
@@ -136,8 +137,7 @@ function ExploreViewContainer(props) {
         history.pushState(payload, title, longUrl);
       }
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.warn(
+      logging.warn(
         'Failed at altering browser history',
         payload,
         title,
